@@ -18,4 +18,9 @@ describe('QuoteService', () => {
     service.removeQuote(0);
     expect(service.quoteList.length).toBeLessThan(1);
   });
+
+  it('should return fetch from server', async () => {
+    const result = await service.fetchQuotesFromServer();
+    expect(result.length).toBeGreaterThanOrEqual(1);
+  });
 });

@@ -9,7 +9,7 @@ import { QuoteModel, QuoteService } from '../services/quote.service';
 export class QuotesComponent implements OnInit {
   public quoteList: QuoteModel[] = [];
   public fetchedList: QuoteModel[] = [];
-  public quoteText: String = "";
+  public quoteText: string = "";
 
   constructor(private service: QuoteService) {}
 

@@ -9,9 +9,9 @@ export class QuoteService {
 
   constructor() { }
 
-  addNewQuote(quote: String) {
+  addNewQuote(quote: string) {
     const date = new Date();
-    const dayOfTheWeek = this.daysOfTheWeeks[date.getDate()];
+    const dayOfTheWeek = this.daysOfTheWeeks[date.getDay()];
     const day = date.getDay();
     const year = date.getFullYear();
     this.quoteList.push(

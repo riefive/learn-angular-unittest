@@ -14,9 +14,6 @@ describe('QuotesComponent', () => {
       imports: [FormsModule],
       declarations: [QuotesComponent]
     });
-  });
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(QuotesComponent);
     component = fixture.debugElement.componentInstance;
   });
@@ -68,12 +65,31 @@ describe('QuotesComponent', () => {
       new QuoteModel('I love unit testing', 'Mon 4, 2018')
     ];
     const quoteService = fixture.debugElement.injector.get(QuoteService);
-    let spy = spyOn(quoteService, 'fetchQuotesFromServer').and.returnValue(
+    spyOn(quoteService, 'fetchQuotesFromServer').and.returnValue(
       Promise.resolve(fakedFetchedList)
     );
     fixture.detectChanges();
     fixture.whenStable().then(() => {
       expect(component.fetchedList).toBe(fakedFetchedList);
     });
+  });
+
+  it('should add a post', () => {
+    const quoteService = fixture.debugElement.injector.get(QuoteService);
+    const qouteText = 'This is my first post';
+    quoteService.addNewQuote(qouteText);
+    fixture.detectChanges();
+    component.quoteText = 'I like pizza!';
+    component.createNewQuote();
+    expect(quoteService.quoteList.length).toBeGreaterThan(1);
+  });
+
+  it('should remove a post', () => {
+    const quoteService = fixture.debugElement.injector.get(QuoteService);
+    const qouteText = 'This is my first post';
+    quoteService.addNewQuote(qouteText);
+    fixture.detectChanges();
+    component.removeQuote(0);
+    expect(quoteService.quoteList.length).toBeLessThan(1);
   });
 });
